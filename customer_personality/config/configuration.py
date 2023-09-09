@@ -3,7 +3,7 @@ import sys
 from customer_personality.logger.logs import logging
 from customer_personality.utils.utils import read_yaml_file
 from customer_personality.exception import AppException
-from customer_personality.entity.config_entity import DataIngestionConfig, DataValidationConfig, DataTransformationConfig, ModelTrainerConfig
+from customer_personality.entity.config_entity import DataIngestionConfig
 from customer_personality.constant import *
 
 
@@ -35,3 +35,4 @@ class AppConfiguration:
 
         except Exception as e:
             raise AppException(e, sys) from e
+        
