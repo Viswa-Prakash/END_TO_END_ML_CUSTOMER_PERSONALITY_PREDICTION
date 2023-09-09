@@ -6,4 +6,8 @@ data_ingestion_config:
   dataset_dir: dataset
   ingested_dir: ingested_data
   raw_data_dir: raw_data
-  
+
+data_validation_config:
+  clean_data_dir: clean_data
+  serialized_objects_dir: serialized_objects
+  marketing_campaign_csv_file: marketing_campaign.csv
