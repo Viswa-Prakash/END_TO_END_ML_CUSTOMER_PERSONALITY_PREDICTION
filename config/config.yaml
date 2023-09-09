@@ -11,3 +11,6 @@ data_validation_config:
   clean_data_dir: clean_data
   serialized_objects_dir: serialized_objects
   marketing_campaign_csv_file: marketing_campaign.csv
+
+data_transformation_config:
+  transformed_data_dir: transformed_data
