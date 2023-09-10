@@ -37,7 +37,7 @@ class ModelTrainer:
             os.makedirs(self.model_trainer_config.trained_model_dir, exist_ok=True) 
             plt.plot(clusterRange, inertiaRange)
             image_name = os.path.join(self.model_trainer_config.trained_model_dir,"elbow_plot.png")
-            # plt.savefig(image_name)
+            plt.savefig(image_name)
             
             # cluster 4 is fine for this data
             model = KMeans(n_clusters=4)
