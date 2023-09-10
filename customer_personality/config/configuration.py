@@ -3,7 +3,7 @@ import sys
 from customer_personality.logger.logs import logging
 from customer_personality.utils.utils import read_yaml_file
 from customer_personality.exception import AppException
-from customer_personality.entity.config_entity import DataIngestionConfig, DataValidationConfig, DataTransformationConfig
+from customer_personality.entity.config_entity import DataIngestionConfig, DataValidationConfig, DataTransformationConfig, ModelTrainerConfig
 from customer_personality.constant import *
 
 
@@ -83,3 +83,31 @@ class AppConfiguration:
 
         except Exception as e:
             raise AppException(e, sys) from e
+
+
+    
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
+        try:
+            model_trainer_config = self.configs_info['model_trainer_config']
+            data_transformation_config = self.configs_info['data_transformation_config']
+            data_ingestion_config = self.configs_info['data_ingestion_config']
+            dataset_dir = data_ingestion_config['dataset_dir']
+            artifacts_dir = self.configs_info['artifacts_config']['artifacts_dir']
+
+          
+           
+            transformed_data_file_dir = os.path.join(artifacts_dir, dataset_dir, data_transformation_config['transformed_data_dir'], 'transformed_data.csv')
+            trained_model_dir = os.path.join(artifacts_dir, model_trainer_config['trained_model_dir'])
+            trained_model_name = model_trainer_config['trained_model_name']
+
+            response = ModelTrainerConfig(
+                transformed_data_file_dir = transformed_data_file_dir,
+                trained_model_dir = trained_model_dir,
+                trained_model_name = trained_model_name
+            )
+
+            logging.info(f"Model Trainer Config: {response}")
+            return response
+
+        except Exception as e:
+            raise AppException(e, sys) from e    
