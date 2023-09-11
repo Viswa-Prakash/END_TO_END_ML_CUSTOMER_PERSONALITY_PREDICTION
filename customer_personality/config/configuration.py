@@ -3,7 +3,7 @@ import sys
 from customer_personality.logger.logs import logging
 from customer_personality.utils.utils import read_yaml_file
 from customer_personality.exception import AppException
-from customer_personality.entity.config_entity import DataIngestionConfig, DataValidationConfig, DataTransformationConfig, ModelTrainerConfig
+from customer_personality.entity.config_entity import DataIngestionConfig, DataValidationConfig, DataTransformationConfig, ModelTrainerConfig, ModelPredictionConfig 
 from customer_personality.constant import *
 
 
@@ -111,3 +111,22 @@ class AppConfiguration:
 
         except Exception as e:
             raise AppException(e, sys) from e    
+    
+    def get_prediction_config(self) -> ModelPredictionConfig:
+        try:
+            model_trainer_config = self.configs_info['model_trainer_config']
+            trained_model_name = model_trainer_config['trained_model_name']
+            artifacts_dir = self.configs_info['artifacts_config']['artifacts_dir']
+            trained_model_dir = os.path.join(artifacts_dir, model_trainer_config['trained_model_dir'])
+
+            trained_model_path = os.path.join(trained_model_dir, trained_model_name)
+
+            response = ModelPredictionConfig(
+                trained_model_path = trained_model_path
+            )
+
+            logging.info(f"Model Prediction Config: {response}")
+            return response
+
+        except Exception as e:
+            raise AppException(e,sys) from e
